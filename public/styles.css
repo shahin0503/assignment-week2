@@ -1,0 +1,100 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 20px;
+	padding: 0;
+}
+
+h1 {
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.item-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0;
+}
+
+input[type='text'],
+input[type='password'] {
+	padding: 8px;
+	width: 300px;
+	margin-right: 10px;
+}
+
+.login-input {
+	width: 100% !important;
+    display: block;
+	padding: 10px;
+    margin-right: 0px !important;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+button {
+	padding: 8px 16px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
+
+table {
+	border-collapse: collapse;
+	width: 80%;
+	margin: 0 auto;
+}
+
+
+label {
+	display: block;
+	font-weight: bold;
+}
+
+th,
+td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+.login-container {
+	max-width: 400px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+.login-btn {
+    display: block;
+}
+
+.hidden {
+	display: none;
+}
+
+.message {
+	padding: 10px;
+}
+
+.success {
+	color: green;
+}
+
+.error {
+	color: red;
+}
