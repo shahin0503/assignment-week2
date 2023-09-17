@@ -6,6 +6,28 @@ const itemTable = document
 	.getElementById('item-table')
 	.getElementsByTagName('tbody')[0]
 const messageDiv = document.getElementById('message')
+const loginText = document.getElementById('login-text')
+const signupText = document.getElementById('signup-text')
+const formTitle = document.getElementById('form-title')
+const logout = document.getElementById('logout-text')
+// Show the login form by default
+let isLogin = true
+const toggleForm = () => {
+	if (isLogin) {
+		isLogin = false
+		loginText.classList.add('hidden')
+		formTitle.innerHTML = 'Sign up'
+		signupText.classList.remove('hidden')
+	} else {
+		isLogin = true
+		signupText.classList.add('hidden')
+		formTitle.innerHTML = 'Log in'
+		loginText.classList.remove('hidden')
+	}
+}
+
+loginText.addEventListener('click', toggleForm)
+signupText.addEventListener('click', toggleForm)
 
 const checkLogin = () => {
     const token = localStorage.getItem('token')
@@ -30,13 +52,18 @@ const checkLogin = () => {
 loginForm.addEventListener('submit', e => {
 	e.preventDefault()
 
-	console.log('submit button')
 	// Get the entered username and password
 	const username = document.getElementById('username').value
 	const password = document.getElementById('password').value
 
-	// Send a POST request to the login endpoint (modify the URL as needed)
-	fetch('/api/login', {
+	let apiUri = ''
+	if(isLogin) {
+		apiUri = '/api/login'
+	}else {
+		apiUri = '/api/signup'
+	}
+	// Send a POST request to the login/signup endpoint
+	fetch(apiUri, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -147,6 +174,11 @@ const editItem = id => {
 	}
 }
 
+// Logout the user by clearing the token from local storage
+logout.addEventListener('click', () => {
+	localStorage.removeItem('token')
+	window.location.reload()
+})
 // Function to show a message
 const showMessage = (message, type) => {
 	messageDiv.textContent = message

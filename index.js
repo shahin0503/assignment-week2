@@ -15,6 +15,8 @@ app.use(express.static('public'))
 // Sample in-memory database
 let data = []
 let nextItemId = 1
+let nextUserId = 1
+
 const users = [
 	{ id: 1, username: 'user1', password: 'password1' },
 	{ id: 2, username: 'user2', password: 'password2' }
@@ -55,10 +57,12 @@ function authenticateUser(req, res, next) {
     });
   }
 
+// Verifu authentication token
 app.get('/api/me', authenticateUser, (req, res) => {
     res.status(200).send();
 })
 
+// User login
 app.post('/api/login', (req, res) => {
 	const { username, password } = req.body
 	const user = users.find(
@@ -85,6 +89,43 @@ app.post('/api/login', (req, res) => {
 		res.json({ success: true, message: 'Login successful', token })
 	} else {
 		res.status(401).json({ success: false, message: 'Authentication failed' })
+	}
+})
+
+// Register a new user
+app.post('/api/signup', (req, res) => {
+    const { username, password } = req.body
+	const user = users.find(
+		u => u.username === username
+	)
+
+	if (!user) {
+        const newUser = {
+            username,
+            password,
+            id: nextUserId++
+        }
+
+        users.push(newUser)
+		// Create a JWT payload with user information (you can customize this)
+		const payload = {
+			id: newUser.id,
+			username: newUser.username
+		}
+
+		// Sign the token with a secret key (keep this secret!)
+		const secretKey = 'your-secret-key' // Replace with your actual secret key
+		const options = {
+			expiresIn: '1h' // Set the expiration time for the token
+		}
+
+		// Generate the JWT
+		const token = jwt.sign(payload, secretKey, options)
+
+		// Return the token to the client
+		res.status(201).json({ success: true, message: 'Signup successful', token })
+	} else {
+		res.status(400).json({ success: false, message: 'User already registered' })
 	}
 })
 

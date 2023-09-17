@@ -83,8 +83,14 @@ td {
     display: block;
 }
 
+.login-text, .signup-text, .logout-text {
+	text-decoration: underline;
+	color: #007bff;
+	cursor: pointer;
+}
+
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 .message {
